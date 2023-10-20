@@ -1,0 +1,39 @@
+name: deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 'v16.20.2'
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run linting
+        run: pnpm run lint
+
+      - name: Run tests
+        run: pnpm run test
+
+      - name: Build proyect
+        run: pnpm build
+
+      - name: Deploy to server
+        run: pnpm build
+
+      
