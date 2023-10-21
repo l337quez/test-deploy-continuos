@@ -13,6 +13,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Configure SSH
+        env:
+          DEPLOY_KEY: ${{ secrets.SSH_PRIVATE_KEY_TEST }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$DEPLOY_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
@@ -34,6 +43,8 @@ jobs:
         run: pnpm build
 
       - name: Deploy to server
-        run: pnpm build
-
-      
+        run: |
+          ssh root@landings-staging.clientify.net "pm2 stop test"
+          ssh root@landings-staging.clientify.net "cd test-deploy-continuos && git pull"
+          ssh root@landings-staging.clientify.net "cd test-deploy-continuos && nest build"
+          ssh root@landings-staging.clientify.net "pm2 start test"
