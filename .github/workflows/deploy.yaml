@@ -43,7 +43,8 @@ jobs:
 
       - name: Deploy to server
         run: |
-          ssh root@landings-staging.clientify.net "pm2 stop test"
-          ssh root@landings-staging.clientify.net "cd test-deploy-continuos && git pull"
-          ssh root@landings-staging.clientify.net "cd test-deploy-continuos && nest build"
-          ssh root@landings-staging.clientify.net "pm2 start test"
+          ssh root@landings-staging.clientify.net "ls"
+          # ssh root@landings-staging.clientify.net "pm2 stop test"
+          # ssh root@landings-staging.clientify.net "cd test-deploy-continuos && git pull"
+          # ssh root@landings-staging.clientify.net "cd test-deploy-continuos && nest build"
+          # ssh root@landings-staging.clientify.net "pm2 start test"
