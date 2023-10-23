@@ -63,7 +63,7 @@ jobs:
 
 
 
-     - name: Deploy package to cloud server
+      - name: Deploy package to cloud server
         uses: appleboy/ssh-action@master
         with:
           host: "landings-staging.clientify.net"
