@@ -13,26 +13,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # - name: ADD github.com AS A KNOWN HOST
-      #   run: |
-      #     mkdir -p ~/.ssh
-      #     echo "${{ secrets.SSH_PRIVATE_KEY_TEST }}" > ~/.ssh/id_rsa
-      #     chmod 600 ~/.ssh/id_rsa
-      #     echo "************************"
-      #     cat ~/.ssh/id_rsa
-      #     echo "************************"
-      #     ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
-
-      - name: Install SSH Key
-        uses: shimataro/ssh-key-action@v2
-        with:
-          key: $\{{ secrets.SSH_PRIVATE_KEY_TEST }}
-          known_hosts: unnecessary
-
-      - name: Adding Known Hosts
-      #  run: ssh-keyscan -p $\{{ secrets.SSH_PORT}} -H $\{{ secrets.SSH_HOST }}  >> ~/.ssh/known_hosts
-        run: ssh-keyscan -p 22 -H landings-staging.clientify.net  >> ~/.ssh/known_hosts
-
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
@@ -53,9 +33,41 @@ jobs:
       - name: Build proyect
         run: pnpm build
 
-      - name: Deploy to server
-        run: ssh root@landings-staging.clientify.net "ls"
+      # - name: Deploy to server
+      #   run: ssh root@landings-staging.clientify.net "ls"
         # ssh root@landings-staging.clientify.net "pm2 stop test"
         # ssh root@landings-staging.clientify.net "cd test-deploy-continuos && git pull"
         # ssh root@landings-staging.clientify.net "cd test-deploy-continuos && nest build"
         # ssh root@landings-staging.clientify.net "pm2 start test"
+
+
+      # - name: ADD github.com AS A KNOWN HOST
+      #   run: |
+      #     mkdir -p ~/.ssh
+      #     echo "${{ secrets.SSH_PRIVATE_KEY_TEST }}" > ~/.ssh/id_rsa
+      #     chmod 600 ~/.ssh/id_rsa
+      #     echo "************************"
+      #     cat ~/.ssh/id_rsa
+      #     echo "************************"
+      #     ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+
+    #  - name: Install SSH Key
+      #  uses: shimataro/ssh-key-action@v2
+      #  with:
+        #  key: $\{{ secrets.SSH_PRIVATE_KEY_TEST }}
+        #  known_hosts: unnecessary
+
+    #  - name: Adding Known Hosts
+      #  run: ssh-keyscan -p $\{{ secrets.SSH_PORT}} -H $\{{ secrets.SSH_HOST }}  >> ~/.ssh/known_hosts
+      #  run: ssh-keyscan -p 22 -H landings-staging.clientify.net  >> ~/.ssh/known_hosts
+
+
+
+     - name: Deploy package to cloud server
+        uses: appleboy/ssh-action@master
+        with:
+          host: "landings-staging.clientify.net"
+          username: "root"
+          key: ${{ secrets.SSH_PRIVATE_KEY_TEST }}
+          script: |
+            ls
