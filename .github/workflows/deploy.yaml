@@ -20,7 +20,9 @@ jobs:
           ls
           cat ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
+          echo "************************"
           cat ~/.ssh/id_rsa
+          echo "************************"
           ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
 
       # - name: ADD github.com AS A KNOWN HOST
