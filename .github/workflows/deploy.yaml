@@ -18,8 +18,9 @@ jobs:
         with:
           node-version: 'v16.20.2'
 
-      - name: Install pnpm
+      - name: Install pnpm and pm2
         run: npm install -g pnpm
+        run: npm install -g pm2
 
       - name: Install dependencies
         run: pnpm install
