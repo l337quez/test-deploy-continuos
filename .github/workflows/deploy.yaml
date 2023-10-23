@@ -22,12 +22,12 @@ jobs:
       #     ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
 
       - name: ADD github.com AS A KNOWN HOST
-      run: |
-        mkdir -p ~/.ssh
-        echo "$SSH_PUBLIC_KEY_TEST" > ~/.ssh/.ssh/known_hosts
-        chmod 600 ~/.ssh/id_rsa
-        cat ~/.ssh/id_rsa
-        ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PUBLIC_KEY_TEST" > ~/.ssh/.ssh/known_hosts
+          chmod 600 ~/.ssh/id_rsa
+          cat ~/.ssh/id_rsa
+          ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
 
 
       - name: Set up Node.js
