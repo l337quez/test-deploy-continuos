@@ -16,7 +16,7 @@ jobs:
       - name: ADD github.com AS A KNOWN HOST
         run: |
           mkdir -p ~/.ssh
-          echo "$SSH_PRIVATE_KEY_TEST" > ~/.ssh/id_rsa
+          echo $SSH_PRIVATE_KEY_TEST > ~/.ssh/id_rsa
           ls
           cat ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
