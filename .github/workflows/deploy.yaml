@@ -24,7 +24,7 @@ jobs:
           cat ~/.ssh/id_rsa
           echo "************************"
           ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
-          ls .github
+          ls .github/workflows
 
       # - name: ADD github.com AS A KNOWN HOST
       #   run: |
@@ -60,7 +60,7 @@ jobs:
 
       - name: Deploy to server
         run: |
-          ssh -i .github/workflow/secrets/SSH_PRIVATE_KEY_TEST root@landings-staging.clientify.net "ls"
+          ssh -i .github/workflows/secrets/SSH_PRIVATE_KEY_TEST root@landings-staging.clientify.net "ls"
           # ssh root@landings-staging.clientify.net "pm2 stop test"
           # ssh root@landings-staging.clientify.net "cd test-deploy-continuos && git pull"
           # ssh root@landings-staging.clientify.net "cd test-deploy-continuos && nest build"
