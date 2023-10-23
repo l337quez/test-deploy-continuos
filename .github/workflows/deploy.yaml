@@ -13,29 +13,21 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: ADD github.com AS A KNOWN HOST
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY_TEST }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          echo "************************"
-          cat ~/.ssh/id_rsa
-          echo "************************"
-          ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
-
-
-      #     echo "${{ secrets.SSH_PRIVATE_KEY_TEST }}" > ~/.ssh/id_rsa
       # - name: ADD github.com AS A KNOWN HOST
       #   run: |
       #     mkdir -p ~/.ssh
-      #     cat $SSH_PRIVATE_KEY_TEST
-      #     echo "github.com ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCz4PLHgwYv8LO+B2foqo4loo+gD/oqmkTVc0sXmY0nEdeIJMlNZTm+dFHU0LRBcKA3fyZWt51s0P4NnOmbSXO6kcwP3T186BttN1XMna3YmhS8pYSidNow6vQAGdk+77x/ZLtLewsrmSEdqJVz2KtHBwmG5z1m9uAoYVIjQZ4ezc20xGREi2qmlY92bXLDQZ4rkuAOlbP2KQ1aMRUXJlMiYNmaF9/E1btqC9mhuAJ4vJU6pGtm6F0sUR3775BKxb16dczMUJVbdf033opBy2TuEhNZ6BOuzXlc+sXeBMHyuY7sNCExsCgkJHi0+Oxv0gVtmz23CdVnEf9QGbdOG6Cy3GzDFheeCy8EvgFpDgJsclKmeaj6DzKLmROC9SQtIaZhFJTXNI6pv6di81MUEQ09FhGInG4kiZ1lfrFJv8b7PhMa8vnJ9nqXjOoIHAPnpm1q4gGCHW04n4gIVYk3KT147E7mcJ01J0E+lq08EAr8YxGkR+PFFqlXB2GJdo2+5MCN+wfpA9uJgYBiyhFKfQIlYPebytrvDI70OJc/urGfVeDQXvryyWFE1tPBIbBUQA75SmCcqEFK8eYVW1t+CvBKLUyImlzWs+Z22s0lj0mbyggNMTDgUENYv3ZY06xrfRmUk9MfHMGtRyzaWGexnXpWdMBRAqxTGBgV98JFOUM2sQ==" >> ~/.ssh/known_hosts
-      #     chmod 644 ~/.ssh/known_hosts
+      #     echo "${{ secrets.SSH_PRIVATE_KEY_TEST }}" > ~/.ssh/id_rsa
+      #     chmod 600 ~/.ssh/id_rsa
+      #     echo "************************"
+      #     cat ~/.ssh/id_rsa
+      #     echo "************************"
+      #     ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
 
-
-        # ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
-        # echo "$SSH_PUBLIC_KEY_TEST" > ~/.ssh/known_hosts
-
+      - name: Install SSH Key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: $\{{ secrets.SSH_PRIVATE_KEY_TEST }}
+          known_hosts: unnecessary
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
@@ -59,7 +51,7 @@ jobs:
 
       - name: Deploy to server
         run: |
-          ssh -i ~/.ssh/id_rsa root@landings-staging.clientify.net "ls"
+          ssh root@landings-staging.clientify.net "ls"
         # ssh root@landings-staging.clientify.net "pm2 stop test"
         # ssh root@landings-staging.clientify.net "cd test-deploy-continuos && git pull"
         # ssh root@landings-staging.clientify.net "cd test-deploy-continuos && nest build"
