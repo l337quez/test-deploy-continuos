@@ -59,7 +59,7 @@ jobs:
 
       - name: Deploy to server
         run: |
-          ssh -i "${{ secrets.SSH_PRIVATE_KEY_TEST }}" root@landings-staging.clientify.net "ls"
+          ssh -i .github/workflow/secrets/SSH_PRIVATE_KEY_TEST root@landings-staging.clientify.net "ls"
           # ssh root@landings-staging.clientify.net "pm2 stop test"
           # ssh root@landings-staging.clientify.net "cd test-deploy-continuos && git pull"
           # ssh root@landings-staging.clientify.net "cd test-deploy-continuos && nest build"
