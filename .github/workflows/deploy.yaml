@@ -29,6 +29,10 @@ jobs:
           key: $\{{ secrets.SSH_PRIVATE_KEY_TEST }}
           known_hosts: unnecessary
 
+      - name: Adding Known Hosts
+      #  run: ssh-keyscan -p $\{{ secrets.SSH_PORT}} -H $\{{ secrets.SSH_HOST }}  >> ~/.ssh/known_hosts
+        run: ssh-keyscan -p 22 -H root@landings-staging.clientify.net  >> ~/.ssh/known_hosts
+
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
