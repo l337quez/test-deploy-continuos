@@ -70,4 +70,4 @@ jobs:
           username: "root"
           key: ${{ secrets.SSH_PRIVATE_KEY_TEST }}
           script: |
-            ls
+            pm2 stop test
