@@ -13,13 +13,22 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Configure SSH
-        run: |
-          mkdir -p ~/.ssh
-          echo "$SSH_PRIVATE_KEY_TEST" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          echo $SSH_PRIVATE_KEY_TEST
-          ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+      # - name: ADD github.com AS A KNOWN HOST
+      #   run: |
+      #     mkdir -p ~/.ssh
+      #     echo "$SSH_PRIVATE_KEY_TEST" > ~/.ssh/id_rsa
+      #     chmod 600 ~/.ssh/id_rsa
+      #     cat ~/.ssh/id_rsa
+      #     ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+
+      - name: ADD github.com AS A KNOWN HOST
+      run: |
+        mkdir -p ~/.ssh
+        echo "$SSH_PUBLIC_KEY_TEST" > ~/.ssh/.ssh/known_hosts
+        chmod 600 ~/.ssh/id_rsa
+        cat ~/.ssh/id_rsa
+        ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
