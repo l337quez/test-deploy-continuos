@@ -24,6 +24,7 @@ jobs:
           cat ~/.ssh/id_rsa
           echo "************************"
           ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+          ls .github
 
       # - name: ADD github.com AS A KNOWN HOST
       #   run: |
