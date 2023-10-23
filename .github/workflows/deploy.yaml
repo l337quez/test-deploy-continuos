@@ -21,7 +21,7 @@ jobs:
           cat ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           echo "************************"
-          cat "$SSH_PRIVATE_KEY_TEST"
+          cat "${{ secrets.SSH_PRIVATE_KEY_TEST }}"
           echo "************************"
           ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
 
