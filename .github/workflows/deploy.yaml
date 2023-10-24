@@ -65,16 +65,13 @@ jobs:
 
 
 
-      - name: Deploy package to cloud server
+      - name: Deploy server
         uses: appleboy/ssh-action@master
         with:
           host: "landings-staging.clientify.net"
           username: "root"
           key: ${{ secrets.SSH_PRIVATE_KEY_TEST }}
           script: |
-            cd ~/
-            sudo -l
-            npm install pm2 -g
-            pm2 -v
-            ls
+            whoami
+            cd ~/test-deploy-continuos
             pm2 stop test
