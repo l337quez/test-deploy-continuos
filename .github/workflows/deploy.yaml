@@ -72,4 +72,5 @@ jobs:
           username: "root"
           key: ${{ secrets.SSH_PRIVATE_KEY_TEST }}
           script: |
+            cd ~/test-deploy-continuos
             pm2 stop test
