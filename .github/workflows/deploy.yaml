@@ -92,10 +92,7 @@ jobs:
             pm2 stop test
             export GITHUB_TOKEN=$(cat token.txt)
             git pull origin main
+            pnpm install
+            pnpm run build
             pm2 start test
 
-
-      - name: Eliminar token de acceso personal
-        run: rm token.txt
-
-        
