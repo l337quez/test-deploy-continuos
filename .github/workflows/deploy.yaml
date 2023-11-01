@@ -63,6 +63,23 @@ jobs:
       #  run: ssh-keyscan -p $\{{ secrets.SSH_PORT}} -H $\{{ secrets.SSH_HOST }}  >> ~/.ssh/known_hosts
       #  run: ssh-keyscan -p 22 -H landings-staging.clientify.net  >> ~/.ssh/known_hosts
 
+      - name: Configurar Git
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+          git config --global credential.helper store
+
+      - name: Obtener token de acceso personal
+        run: echo "${{ secrets.TOKEN_TEST }}" > token.txt
+
+      - name: Realizar pull de la rama main
+        run: |
+          export GITHUB_TOKEN=$(cat token.txt)
+          git pull origin main
+
+      - name: Eliminar token de acceso personal
+        run: rm token.txt
+
       - name: Deploy server
         uses: appleboy/ssh-action@master
         with:
