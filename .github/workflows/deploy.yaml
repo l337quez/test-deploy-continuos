@@ -63,8 +63,6 @@ jobs:
       #  run: ssh-keyscan -p $\{{ secrets.SSH_PORT}} -H $\{{ secrets.SSH_HOST }}  >> ~/.ssh/known_hosts
       #  run: ssh-keyscan -p 22 -H landings-staging.clientify.net  >> ~/.ssh/known_hosts
 
-
-
       - name: Deploy server
         uses: appleboy/ssh-action@master
         with:
