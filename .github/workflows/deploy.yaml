@@ -90,9 +90,7 @@ jobs:
             whoami
             cd ~/test-deploy-continuos
             pm2 stop test
-            export TOKEN_TEST=$(cat token.txt)
-            git pull origin main
-            pnpm install
-            pnpm run build
-            pm2 start test
-
+            git pull https://l337quez:${{ secrets.TOKEN }}@github.com/l337quez/clientify_landings_back.git
+            npm install
+            npm run build
+            pm2 start core-landing
