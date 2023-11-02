@@ -90,7 +90,7 @@ jobs:
             whoami
             cd ~/test-deploy-continuos
             pm2 stop test
-            export GITHUB_TOKEN=$(cat token.txt)
+            export TOKEN_TEST=$(cat token.txt)
             git pull origin main
             pnpm install
             pnpm run build
